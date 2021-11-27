@@ -10,7 +10,7 @@ private:
     int dosage; // 0.25uL = 250nL
     bool modeContinue;
     String unit = "µL";
-    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2;
+    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2; // Créer un pointeur dans l'espace mémoire
     void actualiser();
 
 public:

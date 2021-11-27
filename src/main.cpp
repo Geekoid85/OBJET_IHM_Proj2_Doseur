@@ -56,5 +56,4 @@ void loop() {
 
   }
   ecran.actualiserBatterie(getNiveauBatterie());
-  //  ecran.actualiserBatterie(getPourcentage); // fonction getPourcentage dans un .cpp séparé qui me donne un int mafonction () { return pourcentage }
 }
