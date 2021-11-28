@@ -26,8 +26,9 @@ void loop() {
     && digitalRead(BROCHE_MOINS == HIGH)) {
     tone(BROCHE_BUZZER, 1760);
     // Fonction pour déposer une dose avec une boucle while qui empêche d'appuyer sur le bouton tant que la distribution n'est pas fini
-    // Quid du mode continue ?
+    //TODO Intéruption sur le front montant
     noTone(BROCHE_BUZZER);
+    delay(ANTI_REBOND);
 
   } else if (digitalRead(BROCHE_DOSE) == HIGH // Si le bouton Plus est pressé
     && digitalRead(BROCHE_PLUS) == LOW
@@ -53,7 +54,7 @@ void loop() {
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
   } else { // Si d'autres combinaisons sont pressés par mégard
-
+    ecran.erreur();
   }
   ecran.actualiserBatterie(getNiveauBatterie());
 }

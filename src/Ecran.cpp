@@ -3,7 +3,6 @@
 #include <U8g2lib.h>
 #include <Wire.h>
 
-
 Ecran::Ecran(int SDA, int SCL) {
     // Intialiser mon écran (font, color...)
     this->u8g2 = new U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C(/* rotation=*/ U8G2_R0, /* reset=*/ U8X8_PIN_NONE); // remplir l'espace mémoire du pointeur 
@@ -15,6 +14,7 @@ Ecran::Ecran(int SDA, int SCL) {
     //inialisation des pointeurs
     this->niveauBatterie = 50; // dans le futur = getPourcentage
     this->dosage = 250;
+    this->resolutionDosage = 50; // résolution du dosage 0.05µL
     this->modeContinue = 0;
 }
 
@@ -25,9 +25,10 @@ void Ecran::actualiser() {
     } else {
         this->unit = "µL/s";
     }
+
     u8g2->firstPage(); do { // Les éventuels variables présentes dans cette boucle ne doivent pas changer pendant l'execution de la boucle
         u8g2->setCursor(30, 28); // L'origine d'une lettre c'est en bas à gauche
-        u8g2->print(this->dosage * 1000 + unit);
+        u8g2->print(this->dosage * 1000 * COEF_K + unit);
         // Affichage du niveau de batterie
         u8g2->drawFrame(0, 5, 18, 27); // Contour Origine X=32-26 Y, Dimension XY
         u8g2->drawBox(6, 2, 6, 3); // Bosse
@@ -47,12 +48,16 @@ void Ecran::actualiser() {
 }
 
 void Ecran::incrementation() {
-    dosage += 50; // revient à dosage = dosage + 50
+    dosage += RESOLUTION_DOSAGE; // revient à dosage = dosage + RESOLUTION_DOSAGE
     this->actualiser();
 }
 void Ecran::decrementation() {
-    dosage -= 50;
-    this->actualiser();
+    if (dosage > RESOLUTION_DOSAGE) {
+        dosage -= RESOLUTION_DOSAGE;
+        this->actualiser();
+    } else {
+        this->erreur();
+    }
 }
 
 void Ecran::changerMode() {
@@ -64,4 +69,12 @@ void Ecran::actualiserBatterie(int niveauBatterie) {
         this->niveauBatterie = niveauBatterie;
         this->actualiser();
     }
+}
+
+void Ecran::erreur() {
+    u8g2->firstPage(); do {
+        // Dessiner un icone erreur
+    } while (u8g2->nextPage());
+    delay(750); // Afficher l'icone d'erreur pendant 0.75 seconde avant de réafficher l'interface
+    this->actualiser();
 }
