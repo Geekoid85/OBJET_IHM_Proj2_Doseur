@@ -2,6 +2,7 @@
 #include "Ecran.h"
 #include <U8g2lib.h>
 #include <Wire.h>
+#include "Moteur.h"
 
 Ecran::Ecran(int SDA, int SCL) {
     // Intialiser mon écran (font, color...)
@@ -47,7 +48,12 @@ void Ecran::actualiser() {
 }
 
 void Ecran::incrementation() {
-    dosage += RESOLUTION_DOSAGE; // revient à dosage = dosage + RESOLUTION_DOSAGE
+    if (this->modeContinue == 1 // Si le doseur est en mode continue et que l'utilisateur essai de dépasser le débit maximum
+        && dosage > DEBIT_MAX) {
+        this->erreur();
+    } else {
+        dosage += RESOLUTION_DOSAGE; // revient à dosage = dosage + RESOLUTION_DOSAGE
+    }
     this->actualiser();
 }
 void Ecran::decrementation() {
@@ -60,6 +66,10 @@ void Ecran::decrementation() {
 }
 
 void Ecran::changerMode() {
+    if (this->modeContinue == 0 // Si le doseur était en mode Impulsion et que le volume était supérieur au débit maximum
+        && dosage > DEBIT_MAX) {
+        dosage = 750; // Définir un débit par défault inférieur ou égal au débit maximum
+    }
     modeContinue = !modeContinue;
 }
 
@@ -83,7 +93,7 @@ void Ecran::doserVolume() {
     u8g2->firstPage(); do {
         // Dessiner un icone dosage par impulsion (une goutte ?)
     } while (u8g2->nextPage());
-    // méthode moteur.doserVolume()
+    doserVolume(); // Fonction doserVolume dans Moteur.cpp
     this->actualiser();
 }
 
@@ -91,7 +101,7 @@ void Ecran::doserDebit() {
     u8g2->firstPage(); do {
         // Dessiner un icone dosage continue (un +∞ ?)
     } while (u8g2->nextPage());
-    // méthode moteur.doserDebit()
+    doserDebit();
     this->actualiser();
 }
 

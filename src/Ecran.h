@@ -7,6 +7,7 @@
 class Ecran {
 #define RESOLUTION_DOSAGE 50 // Résolutions du dosage 0.05µL
 #define COEF_K 1 // Coefficient de correction du dosage
+#define DEBIT_MAX 750 // Débit maximum en mode continue 0.75µL/s soit F=80N pour une pâte neuve
 private:
     int niveauBatterie;
     int dosage; // 0.25µL = 250nL
