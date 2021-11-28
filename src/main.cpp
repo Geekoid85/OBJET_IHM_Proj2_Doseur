@@ -66,7 +66,7 @@ void loop() {
     delay(ANTI_REBOND);
   } else { // Si d'autres combinaisons sont pressés par mégard
     tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    ecran.erreur();
+    ecran.erreur(ecran.BOUTON);
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
   }

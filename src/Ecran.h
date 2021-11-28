@@ -18,12 +18,19 @@ private:
     void actualiser();
 
 public:
+    enum TypeErreur {
+        MIN,
+        MAX,
+        BOUTON, // TODO Trouver un meilleur nom
+        BATTERIE_FAIBLE,
+        SUR_INTENSITE
+    };
     Ecran(int SDA, int SCL);
     void incrementation(); // 0.05uL = 50nL
     void decrementation();
     void changerMode();
     void actualiserBatterie(int niveauBatterie);
-    void erreur();
+    void erreur(TypeErreur typeErreur);
     void doserVolume();
     void doserDebit();
     bool getModeContinue();

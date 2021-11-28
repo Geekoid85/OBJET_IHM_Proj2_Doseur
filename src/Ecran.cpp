@@ -50,7 +50,7 @@ void Ecran::actualiser() {
 void Ecran::incrementation() {
     if (this->modeContinue == 1 // Si le doseur est en mode continue et que l'utilisateur essai de dépasser le débit maximum
         && dosage > DEBIT_MAX) {
-        this->erreur();
+        this->erreur(MAX);
     } else {
         dosage += RESOLUTION_DOSAGE; // revient à dosage = dosage + RESOLUTION_DOSAGE
     }
@@ -61,14 +61,15 @@ void Ecran::decrementation() {
         dosage -= RESOLUTION_DOSAGE;
         this->actualiser();
     } else {
-        this->erreur();
+        this->erreur(MIN);
     }
 }
 
 void Ecran::changerMode() {
     if (this->modeContinue == 0 // Si le doseur était en mode Impulsion et que le volume était supérieur au débit maximum
         && dosage > DEBIT_MAX) {
-        dosage = 750; // Définir un débit par défault inférieur ou égal au débit maximum
+        dosage = DEBIT_MAX; // Définir un débit par défault comme étant le débit maximum
+        this->erreur(MAX);
     }
     modeContinue = !modeContinue;
 }
@@ -80,9 +81,25 @@ void Ecran::actualiserBatterie(int niveauBatterie) {
     }
 }
 
-void Ecran::erreur() {
+void Ecran::erreur(TypeErreur typeErreur) {
     u8g2->firstPage(); do {
-        // Dessiner un icone erreur
+        switch (typeErreur) {
+        case MIN:
+            // TODO Afficher "MIN" en gras et en grand
+            break;
+        case MAX:
+            // TODO Afficher "MAX" en gras et en grand
+            break;
+        case BOUTON:
+            // TODO Afficher une croix
+            break;
+        case BATTERIE_FAIBLE:
+            break;
+            // TODO Afficher une batterie vide avec une croix par dessus
+        case SUR_INTENSITE:
+            // TODO Indiquer que le piston est probablement en buté ou que la pâte est trop vieille
+            break;
+        }
     } while (u8g2->nextPage());
     delay(750); // Afficher l'icone d'erreur et donc buzzer pendant 0.75 seconde avant de réafficher l'interface
     this->actualiser();
