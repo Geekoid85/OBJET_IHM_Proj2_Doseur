@@ -25,7 +25,6 @@ void Ecran::actualiser() {
     } else {
         this->unit = "µL/s";
     }
-
     u8g2->firstPage(); do { // Les éventuels variables présentes dans cette boucle ne doivent pas changer pendant l'execution de la boucle
         u8g2->setCursor(30, 28); // L'origine d'une lettre c'est en bas à gauche
         u8g2->print(this->dosage * 1000 * COEF_K + unit);
@@ -75,6 +74,27 @@ void Ecran::erreur() {
     u8g2->firstPage(); do {
         // Dessiner un icone erreur
     } while (u8g2->nextPage());
-    delay(750); // Afficher l'icone d'erreur pendant 0.75 seconde avant de réafficher l'interface
+    delay(750); // Afficher l'icone d'erreur et donc buzzer pendant 0.75 seconde avant de réafficher l'interface
     this->actualiser();
+}
+
+void Ecran::doserVolume() {
+
+    u8g2->firstPage(); do {
+        // Dessiner un icone dosage par impulsion (une goutte ?)
+    } while (u8g2->nextPage());
+    // méthode moteur.doserVolume()
+    this->actualiser();
+}
+
+void Ecran::doserDebit() {
+    u8g2->firstPage(); do {
+        // Dessiner un icone dosage continue (un +∞ ?)
+    } while (u8g2->nextPage());
+    // méthode moteur.doserDebit()
+    this->actualiser();
+}
+
+bool Ecran::getModeContinue() {
+    return this->modeContinue;
 }

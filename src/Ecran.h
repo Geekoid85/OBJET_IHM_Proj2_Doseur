@@ -23,6 +23,9 @@ public:
     void changerMode();
     void actualiserBatterie(int niveauBatterie);
     void erreur();
+    void doserVolume();
+    void doserDebit();
+    bool getModeContinue();
 };
 
 #endif
