@@ -1,7 +1,7 @@
 #include "Moteur.h"
 
 void doserVolume() {
-
+    Serial.println("patate");
 }
 
 void doserDebit() {

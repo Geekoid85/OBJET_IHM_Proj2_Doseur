@@ -14,7 +14,7 @@ private:
     int resolutionDosage;
     bool modeContinue;
     String unit;
-    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2; // Créer un pointeur dans l'espace mémoire
+    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C *u8g2; // Créer un pointeur dans l'espace mémoire
     void actualiser();
 
 public:
