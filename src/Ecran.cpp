@@ -4,11 +4,10 @@
 #include <Wire.h>
 #include "Moteur.h"
 
-Ecran::Ecran(int SDA, int SCL) {
-    Serial.begin(9600);
-    Serial.println("ok");
-    // Intialiser mon écran (font, color...)
+Ecran::Ecran(int ppp, int iii) {
     this->u8g2 = new U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C(/* rotation=*/ U8G2_R0, /* reset=*/ U8X8_PIN_NONE); // remplir l'espace mémoire du pointeur 
+    Serial.begin(9600);
+    // Intialiser mon écran (font, color...)
     u8g2->begin();
     u8g2->setI2CAddress(0x78); // Adresse réelle de l'écran 0x3C fois deux égal 0x78
     u8g2->enableUTF8Print(); // Autoriser l'utilisation de caractères spéciaux
@@ -19,6 +18,7 @@ Ecran::Ecran(int SDA, int SCL) {
     this->dosage = 250;
     this->resolutionDosage = 50; // résolution du dosage 0.05µL
     this->modeContinue = 0;
+    Serial.println("ok");
 }
 
 void Ecran::actualiser() {

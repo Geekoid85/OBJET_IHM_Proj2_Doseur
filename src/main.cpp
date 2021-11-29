@@ -1,7 +1,9 @@
 #include <Arduino.h>
 #include "Ecran.h"
 #include "Batterie.h"
-Ecran ecran(13, 12); // Broche de l'écran
+#include <U8g2lib.h>
+#include <Wire.h>
+Ecran ecran(13, 12); // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 
 #define BROCHE_BOUTON_DOSER  4
 #define BROCHE_BOUTON_PLUS 5
@@ -21,10 +23,8 @@ void setup() {
   pinMode(BROCHE_BUZZER, OUTPUT);
   pinMode(BROCHE_LED, OUTPUT);
 
-
   digitalWrite(BROCHE_LED, HIGH);
 }
-
 void loop() {
   if (digitalRead(BROCHE_BOUTON_DOSER) == LOW // Si le bouton Dose est pressé
     && digitalRead(BROCHE_BOUTON_PLUS) == HIGH

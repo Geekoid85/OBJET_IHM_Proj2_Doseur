@@ -14,7 +14,7 @@ private:
     int resolutionDosage;
     bool modeContinue;
     String unit;
-    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C *u8g2; // Créer un pointeur dans l'espace mémoire
+    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2;
     void actualiser();
 
 public:
@@ -25,7 +25,7 @@ public:
         BATTERIE_FAIBLE,
         SUR_INTENSITE
     };
-    Ecran(int SDA, int SCL);
+    Ecran(int ppp, int iii);
     void incrementation(); // 0.05uL = 50nL
     void decrementation();
     void changerMode();
