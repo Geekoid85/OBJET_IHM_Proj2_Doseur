@@ -8,7 +8,7 @@ Ecran::Ecran() {
     u8g2->begin();
     u8g2->setI2CAddress(0x78); // Adresse réelle de l'écran 0x3C fois deux égal 0x78
     u8g2->enableUTF8Print(); // Autoriser l'utilisation de caractères spéciaux
-    u8g2->setFont(u8g2_font_timB24_tf);
+    u8g2->setFont(u8g2_font_timB18_tf);
     u8g2->setDrawColor(1);
     //inialisation des pointeurs
     this->niveauBatterie = 50; // dans le futur = getPourcentage
