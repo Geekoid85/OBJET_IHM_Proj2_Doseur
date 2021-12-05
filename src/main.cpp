@@ -9,7 +9,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 #define BROCHE_BUZZER 3
 #define BROCHE_LED 11
 
-#define ANTI_REBOND 2000
+#define ANTI_REBOND 250
 #define DUREE_BIP 50
 #define FREQUENCE_BIP_DOSER 1760 // Fréquence en Hertz
 #define FREQUENCE_BIP_GENERAL 880
@@ -66,10 +66,10 @@ void loop() {
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
   } else { // Si d'autres combinaisons sont pressés par mégard
-    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+    /*tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
     monEcran->erreur(monEcran->BOUTON);
     noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND);
+    delay(ANTI_REBOND); */
   }
   monEcran->actualiserBatterie(getNiveauBatterie());
 }

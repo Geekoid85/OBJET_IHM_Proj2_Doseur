@@ -27,7 +27,7 @@ void Ecran::actualiser() {
     }
     u8g2->firstPage(); do { // Les éventuels variables présentes dans cette boucle ne doivent pas changer pendant l'execution de la boucle
         u8g2->setCursor(30, 28); // L'origine d'une lettre c'est en bas à gauche
-        u8g2->print(this->dosage * 1000 * COEF_K + unit);
+        u8g2->print(((float)this->dosage / 1000) * COEF_K + unit);
         // Affichage du niveau de batterie
         u8g2->drawFrame(0, 5, 18, 27); // Contour Origine X=32-26 Y, Dimension XY
         u8g2->drawBox(6, 2, 6, 3); // Bosse
