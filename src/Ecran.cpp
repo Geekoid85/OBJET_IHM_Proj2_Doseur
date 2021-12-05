@@ -25,22 +25,23 @@ void Ecran::actualiser() {
     } else {
         this->unit = "µL/s";
     }
-    u8g2->firstPage(); do { // Les éventuels variables présentes dans cette boucle ne doivent pas changer pendant l'execution de la boucle
+    u8g2->firstPage();
+    do { // Les éventuels variables présentes dans cette boucle ne doivent pas changer pendant l'execution de la boucle
         u8g2->setCursor(30, 28); // L'origine d'une lettre c'est en bas à gauche
         u8g2->print(((float)this->dosage / 1000) * COEF_K + unit);
         // Affichage du niveau de batterie
         u8g2->drawFrame(0, 5, 18, 27); // Contour Origine X=32-26 Y, Dimension XY
         u8g2->drawBox(6, 2, 6, 3); // Bosse
-        if (this->niveauBatterie >= 0 && this->niveauBatterie <= 25) {
+        if (this->niveauBatterie >= 0) {
             u8g2->drawBox(2, 25, 14, 5); // [0;25]%
         }
-        if (this->niveauBatterie < 25 && this->niveauBatterie >= 50) {
+        if (this->niveauBatterie >= 25) {
             u8g2->drawBox(2, 19, 14, 5); // ]25;50]%
         }
-        if (this->niveauBatterie < 50 && this->niveauBatterie >= 75) {
+        if (this->niveauBatterie >= 50) {
             u8g2->drawBox(2, 13, 14, 5); // ]50;75]%
         }
-        if (this->niveauBatterie < 75 && this->niveauBatterie >= 100) {
+        if (this->niveauBatterie >= 75) {
             u8g2->drawBox(2, 7, 14, 5); // ]75;100]%
         }
     } while (u8g2->nextPage()); // Afficher page par page le contenu jusqu'à sortir de la boucle
