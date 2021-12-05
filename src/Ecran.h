@@ -9,12 +9,12 @@ class Ecran {
 #define COEF_K 1 // Coefficient de correction du dosage
 #define DEBIT_MAX 750 // Débit maximum en mode continue 0.75µL/s soit F=80N pour une pâte neuve
 private:
+    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2;
     int niveauBatterie;
     int dosage; // 0.25µL = 250nL
     int resolutionDosage;
     bool modeContinue;
     String unit;
-    U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2;
     void actualiser();
 
 public:
@@ -25,7 +25,7 @@ public:
         BATTERIE_FAIBLE,
         SUR_INTENSITE
     };
-    Ecran(int ppp, int iii);
+    Ecran();
     void incrementation(); // 0.05uL = 50nL
     void decrementation();
     void changerMode();
