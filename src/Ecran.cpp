@@ -108,17 +108,23 @@ void Ecran::erreur(TypeErreur typeErreur) {
 void Ecran::doserVolume() {
 
     u8g2->firstPage(); do {
-        // Dessiner un icone dosage par impulsion (une goutte ?)
+        //TODO Dessiner un icone dosage par impulsion (une goutte ?)
+        u8g2->setCursor(30, 28);
+        u8g2->print("vol");
     } while (u8g2->nextPage());
-    doserVolume(); // Fonction doserVolume dans Moteur.cpp
+    goDoserVolume(); // Fonction doserVolume dans Moteur.cpp
+    delay(500);
     this->actualiser();
 }
 
 void Ecran::doserDebit() {
     u8g2->firstPage(); do {
-        // Dessiner un icone dosage continue (un +∞ ?)
+        //TODO Dessiner un icone dosage continue (un +∞ ?)
+        u8g2->setCursor(30, 28);
+        u8g2->print("deb");
     } while (u8g2->nextPage());
-    doserDebit();
+    goDoserDebit();
+    delay(500);
     this->actualiser();
 }
 

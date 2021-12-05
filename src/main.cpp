@@ -65,7 +65,7 @@ void loop() {
     monEcran->changerMode();
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
-  } else { // Si d'autres combinaisons sont pressés par mégard
+  } else { // Si d'autres combinaisons sont pressés par mégard //TODO BUGGGGG NON !!!
     /*tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
     monEcran->erreur(monEcran->BOUTON);
     noTone(BROCHE_BUZZER);
