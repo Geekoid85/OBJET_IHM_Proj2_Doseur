@@ -28,7 +28,7 @@ void setup() {
 void loop() {
   if (digitalRead(BROCHE_BOUTON_DOSER) == LOW // Si le bouton Dose est pressé
     && digitalRead(BROCHE_BOUTON_PLUS) == HIGH
-    && digitalRead(BROCHE_BOUTON_MOINS == HIGH)) {
+    && digitalRead(BROCHE_BOUTON_MOINS) == HIGH) {
     if (monEcran->getModeContinue() == 0) { // Si le doseur est en mode Impulsion
       tone(BROCHE_BUZZER, FREQUENCE_BIP_DOSER);
       delay(DUREE_BIP);
@@ -40,6 +40,14 @@ void loop() {
       noTone(BROCHE_BUZZER);
       monEcran->doserDebit();
     }
+    delay(ANTI_REBOND);
+
+  } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus et le bouton Moins sont pressé simultanément
+    && digitalRead(BROCHE_BOUTON_PLUS) == LOW
+    && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
+    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+    monEcran->changerMode();
+    noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
 
   } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus est pressé
@@ -58,13 +66,6 @@ void loop() {
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
 
-  } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus et le bouton Moins sont pressé simultanément
-    && digitalRead(BROCHE_BOUTON_PLUS) == LOW
-    && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
-    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    monEcran->changerMode();
-    noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND);
   } else { // Si d'autres combinaisons sont pressés par mégard //TODO BUGGGGG NON !!!
     /*tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
     monEcran->erreur(monEcran->BOUTON);
