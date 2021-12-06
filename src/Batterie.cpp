@@ -1,5 +1,5 @@
 #include "Batterie.h"
 
 int getNiveauBatterie() { // Je défini ma fonction
-    return 74;
+    return 68;
 }

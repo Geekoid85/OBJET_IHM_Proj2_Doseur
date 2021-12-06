@@ -42,7 +42,7 @@ void loop() {
     }
     delay(ANTI_REBOND);
 
-  } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus et le bouton Moins sont pressé simultanément
+  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus et le bouton Moins sont pressé simultanément
     && digitalRead(BROCHE_BOUTON_PLUS) == LOW
     && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
     tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
@@ -50,7 +50,7 @@ void loop() {
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
 
-  } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus est pressé
+  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus est pressé
     && digitalRead(BROCHE_BOUTON_PLUS) == LOW
     && digitalRead(BROCHE_BOUTON_MOINS) == HIGH) {
     tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
@@ -58,7 +58,7 @@ void loop() {
     noTone(BROCHE_BUZZER);
     delay(ANTI_REBOND);
 
-  } else if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Moins est presssé
+  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Moins est presssé
     && digitalRead(BROCHE_BOUTON_PLUS) == HIGH
     && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
     tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);

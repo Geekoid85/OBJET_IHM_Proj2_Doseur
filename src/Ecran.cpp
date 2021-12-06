@@ -49,7 +49,7 @@ void Ecran::actualiser() {
 
 void Ecran::incrementation() {
     if (this->modeContinue == 1 // Si le doseur est en mode continue et que l'utilisateur essai de dépasser le débit maximum
-        && dosage > DEBIT_MAX) {
+        && dosage >= DEBIT_MAX) {
         this->erreur(MAX);
     } else {
         dosage += RESOLUTION_DOSAGE; // revient à dosage = dosage + RESOLUTION_DOSAGE
@@ -85,10 +85,18 @@ void Ecran::erreur(TypeErreur typeErreur) {
     u8g2->firstPage(); do {
         switch (typeErreur) {
         case MIN:
-            // TODO Afficher "MIN" en gras et en grand
+            u8g2->firstPage(); do {
+                //TODO Dessiner un icone dosage par impulsion (une goutte ?)
+                u8g2->setCursor(30, 28);
+                u8g2->print("MIN");
+            } while (u8g2->nextPage());
             break;
         case MAX:
-            // TODO Afficher "MAX" en gras et en grand
+            u8g2->firstPage(); do {
+                //TODO Dessiner un icone dosage par impulsion (une goutte ?)
+                u8g2->setCursor(30, 28);
+                u8g2->print("MAX");
+            } while (u8g2->nextPage());
             break;
         case BOUTON:
             // TODO Afficher une croix
