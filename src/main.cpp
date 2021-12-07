@@ -13,6 +13,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 #define DUREE_BIP 50
 #define FREQUENCE_BIP_DOSER 1760 // Fréquence en Hertz
 #define FREQUENCE_BIP_GENERAL 880
+#define FREQUENCE_BIP_MODE 440
 
 void setup() {
   Serial.begin(9600);
@@ -51,7 +52,7 @@ void loop() {
           delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
           if (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Si ce n'était pas un rebond et que le bouton MOINS est donc toujours pressé
             while (digitalRead(BROCHE_BOUTON_MOINS) == LOW) {} // Attendre tant que le bouton MOINS est pressé
-            tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+            tone(BROCHE_BUZZER, FREQUENCE_BIP_MODE);
             monEcran->changerMode();
             noTone(BROCHE_BUZZER);
             doublePression = 1; // Une double pression a donc été détecté
@@ -75,7 +76,7 @@ void loop() {
           delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
           if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si ce n'était pas un rebond et que le bouton PLUS est donc toujours pressé
             while (digitalRead(BROCHE_BOUTON_PLUS) == LOW) {} // Attendre tant que le bouton PLUS est pressé
-            tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+            tone(BROCHE_BUZZER, FREQUENCE_BIP_MODE);
             monEcran->changerMode();
             noTone(BROCHE_BUZZER);
             doublePression = 1; // Une double pression a donc été détecté

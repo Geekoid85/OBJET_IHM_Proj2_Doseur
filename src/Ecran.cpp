@@ -75,6 +75,7 @@ void Ecran::changerMode() {
         this->erreur(MAX);
     }
     modeContinue = !modeContinue;
+    this->actualiser();
 }
 
 void Ecran::actualiserBatterie(int niveauBatterie) {
