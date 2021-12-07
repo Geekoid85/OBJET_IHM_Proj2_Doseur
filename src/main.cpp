@@ -9,7 +9,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 #define BROCHE_BUZZER 3
 #define BROCHE_LED 11
 
-#define ANTI_REBOND 250
+#define ANTI_REBOND 10
 #define DUREE_BIP 50
 #define FREQUENCE_BIP_DOSER 1760 // Fréquence en Hertz
 #define FREQUENCE_BIP_GENERAL 880
@@ -40,37 +40,54 @@ void loop() {
       noTone(BROCHE_BUZZER);
       monEcran->doserDebit();
     }
-    delay(ANTI_REBOND);
+  }
 
-  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus et le bouton Moins sont pressé simultanément
-    && digitalRead(BROCHE_BOUTON_PLUS) == LOW
-    && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
-    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    monEcran->changerMode();
-    noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND);
+  if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si le bouton PLUS est pressé
+    bool doublePression = 0;
+    delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
+    if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si ce n'était pas un rebond et que le bouton PLUS est donc toujours pressé
+      while (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Tant que le bouton PLUS est pressé
+        if (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Si jamais le bouton MOINS est pressé
+          delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
+          if (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Si ce n'était pas un rebond et que le bouton MOINS est donc toujours pressé
+            while (digitalRead(BROCHE_BOUTON_MOINS) == LOW) {} // Attendre tant que le bouton MOINS est pressé
+            tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+            monEcran->changerMode();
+            noTone(BROCHE_BUZZER);
+            doublePression = 1; // Une double pression a donc été détecté
+          }
+        }
+      }
+      if (doublePression == 0) { // Si aucune double pression n'a été détecté
+        tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+        monEcran->incrementation();
+        noTone(BROCHE_BUZZER);
+      } // Sinon, ignorer le relachement du bouton PLUS
+    }
+  }
 
-  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Plus est pressé
-    && digitalRead(BROCHE_BOUTON_PLUS) == LOW
-    && digitalRead(BROCHE_BOUTON_MOINS) == HIGH) {
-    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    monEcran->incrementation();
-    noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND);
-
-  } if (digitalRead(BROCHE_BOUTON_DOSER) == HIGH // Si le bouton Moins est presssé
-    && digitalRead(BROCHE_BOUTON_PLUS) == HIGH
-    && digitalRead(BROCHE_BOUTON_MOINS) == LOW) {
-    tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    monEcran->decrementation();
-    noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND);
-
-  } else { // Si d'autres combinaisons sont pressés par mégard //TODO BUGGGGG NON !!!
-    /*tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
-    monEcran->erreur(monEcran->BOUTON);
-    noTone(BROCHE_BUZZER);
-    delay(ANTI_REBOND); */
+  if (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Si le bouton MOINS est pressé
+    bool doublePression = 0;
+    delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
+    if (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Si ce n'était pas un rebond et que le bouton MOINS est donc toujours pressé
+      while (digitalRead(BROCHE_BOUTON_MOINS) == LOW) { // Tant que le bouton MOINS est pressé
+        if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si jamais le bouton PLUS est pressé
+          delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
+          if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si ce n'était pas un rebond et que le bouton PLUS est donc toujours pressé
+            while (digitalRead(BROCHE_BOUTON_PLUS) == LOW) {} // Attendre tant que le bouton PLUS est pressé
+            tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+            monEcran->changerMode();
+            noTone(BROCHE_BUZZER);
+            doublePression = 1; // Une double pression a donc été détecté
+          }
+        }
+      }
+      if (doublePression == 0) { // Si aucune double pression n'a été détecté
+        tone(BROCHE_BUZZER, FREQUENCE_BIP_GENERAL);
+        monEcran->decrementation();
+        noTone(BROCHE_BUZZER);
+      } // Sinon, ignorer le relachement du bouton MOINS
+    }
   }
   monEcran->actualiserBatterie(getNiveauBatterie());
 }
