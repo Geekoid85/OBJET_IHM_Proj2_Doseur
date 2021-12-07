@@ -8,6 +8,9 @@ class Ecran {
 #define RESOLUTION_DOSAGE 50 // Résolutions du dosage 0.05µL
 #define COEF_K 1 // Coefficient de correction du dosage
 #define DEBIT_MAX 750 // Débit maximum en mode continue 0.75µL/s soit F=80N pour une pâte neuve
+#define LOGO_GOUTTE_TAILLE_X 128
+#define LOGO_GOUTTE_TAILLE_Y 32
+
 private:
     U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C* u8g2;
     int niveauBatterie;
