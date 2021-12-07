@@ -1,10 +1,16 @@
 #include "Moteur.h"
 
-void goDoserVolume() {
+void goDoserVolume(float volume) {
     //TODO Code d'aurélien doser volume
+    Serial.print("Dosage d'un volume de: ");
+    Serial.print(volume);
+    Serial.println(" µL");
 }
 
-void goDoserDebit() {
+void goDoserDebit(float debit) {
     //TODO Code d'aurélien doser débit
     // Tant que le bouton n'a pas été relaché
+    Serial.print("Dosage continue avec un debit de: ");
+    Serial.print(debit);
+    Serial.println(" µL/s");
 }

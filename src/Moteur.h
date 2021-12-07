@@ -6,7 +6,7 @@
 #define BROCHE_PWM 9
 #define BROCHE_CODEUR_A 2
 
-void goDoserVolume();
-void goDoserDebit();
+void goDoserVolume(float volume);
+void goDoserDebit(float debit);
 
 #endif
