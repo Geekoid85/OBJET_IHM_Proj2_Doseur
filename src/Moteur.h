@@ -7,6 +7,6 @@
 #define BROCHE_CODEUR_A 2
 
 void goDoserVolume(float volume);
-void goDoserDebit(float debit);
+void goDoserDebit(float debit, int BROCHE_BOUTON_DOSER);
 
 #endif

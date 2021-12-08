@@ -35,7 +35,7 @@ public:
     void actualiserBatterie(int niveauBatterie);
     void erreur(TypeErreur typeErreur);
     void doserVolume();
-    void doserDebit();
+    void doserDebit(int BROCHE_BOUTON_DOSER);
     bool getModeContinue();
 };
 

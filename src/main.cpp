@@ -27,21 +27,27 @@ void setup() {
   monEcran = new Ecran(); // J'initialise ce pointeur dans le void setup
 }
 void loop() {
-  if (digitalRead(BROCHE_BOUTON_DOSER) == LOW // Si le bouton Dose est pressé
-    && digitalRead(BROCHE_BOUTON_PLUS) == HIGH
-    && digitalRead(BROCHE_BOUTON_MOINS) == HIGH) {
-    if (monEcran->getModeContinue() == 0) { // Si le doseur est en mode Impulsion
-      tone(BROCHE_BUZZER, FREQUENCE_BIP_DOSER);
-      delay(DUREE_BIP);
-      noTone(BROCHE_BUZZER);
-      monEcran->doserVolume();
-    } else { // Si le doseur est en mode Continue
-      tone(BROCHE_BUZZER, FREQUENCE_BIP_DOSER);
-      delay(DUREE_BIP);
-      noTone(BROCHE_BUZZER);
-      monEcran->doserDebit();
+  if (digitalRead(BROCHE_BOUTON_DOSER) == LOW) { // Si le bouton est pressé
+    delay(ANTI_REBOND); // Attendre 10ms pour s'assurer que ce n'est pas un rebond
+    if (digitalRead(BROCHE_BOUTON_DOSER) == LOW) { // Si ce n'était pas un rebond et qu'il est donc toujours pressé
+      while (digitalRead(BROCHE_BOUTON_DOSER) == LOW && monEcran->getModeContinue() == 0) {} // Ne rien faire tant qu'il est pressé
+      if (monEcran->getModeContinue() == 0) { // Si le doseur est en mode Impulsion
+        tone(BROCHE_BUZZER, FREQUENCE_BIP_DOSER);
+        delay(DUREE_BIP);
+        noTone(BROCHE_BUZZER);
+        monEcran->doserVolume();
+      } else { // Si le doseur est en mode Continue
+        tone(BROCHE_BUZZER, FREQUENCE_BIP_DOSER);
+        delay(DUREE_BIP);
+        noTone(BROCHE_BUZZER);
+        monEcran->doserDebit(BROCHE_BOUTON_DOSER);
+      }
     }
   }
+
+
+
+
 
   if (digitalRead(BROCHE_BOUTON_PLUS) == LOW) { // Si le bouton PLUS est pressé
     bool doublePression = 0;
@@ -91,4 +97,5 @@ void loop() {
     }
   }
   monEcran->actualiserBatterie(getNiveauBatterie());
+
 }
