@@ -18,7 +18,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 void setup() {
   Serial.begin(9600);
   pinMode(BROCHE_BOUTON_DOSER, INPUT_PULLUP); // Déclarer les broches des boutons comme entrée et utilise la résistance de rappel positif.
-  pinMode(BROCHE_BOUTON_PLUS, INPUT);
+  pinMode(BROCHE_BOUTON_PLUS, INPUT_PULLUP);
   pinMode(BROCHE_BOUTON_MOINS, INPUT_PULLUP);
   pinMode(BROCHE_BUZZER, OUTPUT);
   pinMode(BROCHE_LED, OUTPUT);
