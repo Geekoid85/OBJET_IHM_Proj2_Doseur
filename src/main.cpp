@@ -16,7 +16,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 #define FREQUENCE_BIP_MODE 440
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(BROCHE_BOUTON_DOSER, INPUT_PULLUP); // Déclarer les broches des boutons comme entrée et utilise la résistance de rappel positif.
   pinMode(BROCHE_BOUTON_PLUS, INPUT_PULLUP);
   pinMode(BROCHE_BOUTON_MOINS, INPUT_PULLUP);

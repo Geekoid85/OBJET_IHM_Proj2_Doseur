@@ -38,8 +38,11 @@ void goDoserDebit(float debit, int BROCHE_BOUTON_DOSER) {
     Serial.print("Dosage continue avec un debit de: ");
     Serial.print(debit);
     Serial.println(" µL/s");
+    digitalWrite(BROCHE_DIR, LOW);//Moteur tourne sens horaire
+    analogWrite(BROCHE_PWM, 200);
     while (digitalRead(BROCHE_BOUTON_DOSER) == LOW) {
     }
+    analogWrite(BROCHE_PWM, 0);
 }
 
 void impulsionRoueCodeuse() {
