@@ -1,15 +1,16 @@
 #include "Moteur.h"
+int nombreImpulsion = 0; //déclaration variable nombre impulsion
+float distanceRetrait = 0.25; // distance de retrait en mm
 
 void goDoserVolume(float volume) {
     //TODO Code d'aurélien doser volume
     Serial.print("Dosage d'un volume de: ");
     Serial.print(volume);
     Serial.println(" µL");
-
-    int nombreImpulsion = 0;//déclaration variable nombre impulsion
-    int nombreImpulsionDosage = 500; // Pour un volume max de 0.56uL
-    long nombreImpulsionRetrait = 2000;//déclaration nombre impulsion retrait
-
+    nombreImpulsion = 0;//remise a zéro
+    int nombreImpulsionDosage = (volume * 58.8 * 986 * 14) / (201 * 2 * 3.14 * 8); // Pour un volume max de 0.56uL
+    int nombreImpulsionRetrait = (distanceRetrait * 58.8 * 986 * 14) / (2 * 3.14 * 8);//déclaration nombre impulsion retrait
+    attachInterrupt(digitalPinToInterrupt(BROCHE_CODEUR_A), impulsionRoueCodeuse, RISING); //Détection impulsion sur roue codeuse donc ajouté 1
     while (nombreImpulsion < nombreImpulsionDosage) {//Tant que nombre d'impulsion insuffisant continuer
         Serial.println(nombreImpulsion);
         digitalWrite(BROCHE_DIR, LOW);//Moteur tourne sens horaire
@@ -27,7 +28,7 @@ void goDoserVolume(float volume) {
     }
     analogWrite(BROCHE_PWM, 0);//moteur stop
     Serial.println(nombreImpulsion);
-    nombreImpulsion = 0;//remise a zé 
+    nombreImpulsion = 0;//remise a zéro
 
 }
 
@@ -39,4 +40,8 @@ void goDoserDebit(float debit, int BROCHE_BOUTON_DOSER) {
     Serial.println(" µL/s");
     while (digitalRead(BROCHE_BOUTON_DOSER) == LOW) {
     }
+}
+
+void impulsionRoueCodeuse() {
+    nombreImpulsion++; // ajouter 1 au nombre d'impulsion
 }

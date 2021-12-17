@@ -8,5 +8,6 @@
 
 void goDoserVolume(float volume);
 void goDoserDebit(float debit, int BROCHE_BOUTON_DOSER);
+void impulsionRoueCodeuse();
 
 #endif
