@@ -6,7 +6,7 @@ Ecran* monEcran; // Broche de l'écranEcran ecran(13, 12); // Broche de l'écran
 #define BROCHE_BOUTON_DOSER  4
 #define BROCHE_BOUTON_PLUS 5
 #define BROCHE_BOUTON_MOINS 6
-#define BROCHE_BUZZER 3
+#define BROCHE_BUZZER 10
 #define BROCHE_LED 11
 
 #define ANTI_REBOND 10

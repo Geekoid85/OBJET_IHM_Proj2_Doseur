@@ -24,8 +24,6 @@ public:
     enum TypeErreur {
         MIN,
         MAX,
-        BOUTON, // TODO Trouver un meilleur nom
-        BATTERIE_FAIBLE,
         SUR_INTENSITE
     };
     Ecran();
